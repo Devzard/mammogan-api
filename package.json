@@ -1,0 +1,25 @@
+{
+  "name": "gan-user-management",
+  "version": "1.0.0",
+  "description": "a user management system api for gan tool and other application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "knex": "^2.0.0",
+    "morgan": "^1.10.0",
+    "sqlite3": "^5.0.8",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
