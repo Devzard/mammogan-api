@@ -8,8 +8,23 @@ async function initTables() {
           table.uuid("id").primary();
           table.string("password");
           table.string("name");
+          table.string("email");
           table.unique("email");
+          table.bigint("last_active");
         });
+      }
+    });
+
+    await knex.schema.hasTable("application_access_table").then((exists) => {
+      if (!exists) {
+        return knex.schema.createTable(
+          "application_access_table",
+          function (table) {
+            table.increments("id").primary();
+            table.string("userId");
+            table.string("app_name");
+          }
+        );
       }
     });
     console.log("Tables initialised");
@@ -19,10 +34,37 @@ async function initTables() {
 }
 initTables();
 
+async function getAllUsers() {
+  try {
+    let res = await knex
+      .select("id", "name", "email", "last_active")
+      .from("users");
+    return res;
+  } catch (err) {
+    console.log(err.message);
+    return [];
+  }
+}
+
 async function insertIntoUsers(id, password, name, email) {
   try {
     await knex("users").insert({
       id: id,
+      password: password,
+      name: name,
+      email: email,
+      last_active: Date.now(),
+    });
+    return true;
+  } catch (err) {
+    console.log(err.message);
+    return false;
+  }
+}
+
+async function editUser(id, password, name, email) {
+  try {
+    await knex("users").where("id", "=", id).update({
       password: password,
       name: name,
       email: email,
@@ -48,8 +90,10 @@ async function insertIntoUsers(id, password, name, email) {
   //     table.string("name");
   //     table.string("email");
   //   });
-  let res2 = await knex.select("*").from("users");
-  console.log(res2);
+  // let res2 = await knex.select("*").from("users");
+  // let res2 = await editUser("1", "456", "ramu", "987654321");
+  // console.log(res2);
+  console.log("--");
 })();
 
-module.exports = { insertIntoUsers };
+module.exports = { insertIntoUsers, editUser, getAllUsers };

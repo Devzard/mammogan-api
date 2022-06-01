@@ -5,6 +5,16 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerJsDocs = require("swagger-jsdoc");
 require("dotenv").config();
 
+const fs = require("fs");
+if (!fs.existsSync("./maindb.sqlite3")) {
+  fs.appendFile("maindb.sqlite3", "", function (err) {
+    if (err) {
+      console.log("Failed at creating database");
+      throw err;
+    } else console.log("DB created");
+  });
+}
+
 const PORT = process.env.PORT || 3300;
 
 // options used for swagger documentation
