@@ -1,4 +1,4 @@
-const { id, password } = require("../config.json");
+const { id, password, applications } = require("../config.json");
 const Auth = require("../services/Auth");
 const DB = require("../services/Database.js");
 
@@ -56,7 +56,20 @@ router.get("/get_users", Auth.authenticateToken, async (req, res) => {
     let status = "fail";
     let resMessage = "";
     let users = await DB.getAllUsers();
+    if (users && users.length >= 0) status = "success";
     res.status(200).json({ data: users, message: resMessage, status: status });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+router.get("/get_users/:id", Auth.authenticateToken, async (req, res) => {
+  let id = req.params.id;
+  try {
+    let status = "fail";
+    let resMessage = "";
+    let user = await DB.getUser(id);
+    res.status(200).json({ data: user, message: resMessage, status: status });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -95,6 +108,16 @@ router.post("/edit_user", Auth.authenticateToken, async (req, res) => {
       resMessage = "user cannot be modified";
       res.status(200).json({ message: resMessage, status: status });
     }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+router.get("/get_applications", Auth.authenticateToken, async (req, res) => {
+  try {
+    res
+      .status(200)
+      .json({ message: "", status: "success", data: applications });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

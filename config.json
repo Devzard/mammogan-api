@@ -1,4 +1,11 @@
 {
     "id":"admin",
-    "password":"admin@iitd"
+    "password":"admin@iitd",
+    "applications":[{
+        "name":"gan",
+        "url":"/gan"
+    }, {
+        "name":"gbc",
+        "url":"/gbc"
+    }]
 }

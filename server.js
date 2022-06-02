@@ -45,5 +45,6 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/admin", require("./routes/admin"));
+app.use("/user", require("./routes/user"));
 
 app.listen(PORT, () => console.log(`Server running at port : ${PORT}`));
