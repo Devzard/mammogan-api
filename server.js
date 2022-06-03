@@ -44,11 +44,12 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(express.static("public"));
 
-app.get("/", async (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+app.get("*", function (req, res) {
+  res.sendFile("index.html", { root: path.join(__dirname, "./public/") });
 });
-app.use("/admin", require("./routes/admin"));
-app.use("/user", require("./routes/user"));
+app.use("/s/admin", require("./routes/admin"));
+app.use("/s/user", require("./routes/user"));
 
 app.listen(PORT, () => console.log(`Server running at port : ${PORT}`));

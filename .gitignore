@@ -1,3 +1,4 @@
 /node_modules
 .env
 /maindb.sqlite3
+/public/*
