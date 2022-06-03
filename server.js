@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsDocs = require("swagger-jsdoc");
+const path = require("path");
 require("dotenv").config();
 
 const fs = require("fs");
@@ -44,6 +45,9 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.get("/", async (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 app.use("/admin", require("./routes/admin"));
 app.use("/user", require("./routes/user"));
 
