@@ -32,6 +32,9 @@ const options = {
       {
         url: "http://127.0.0.1:3300",
       },
+      {
+        url: "http://vision.apps.iitd.ac.in/gan/",
+      },
     ],
   },
   apis: ["./routes/*.js"],
@@ -44,12 +47,13 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.get("*", function (req, res) {
-  res.sendFile("index.html", { root: path.join(__dirname, "./public/") });
-});
 app.use("/s/admin", require("./routes/admin"));
 app.use("/s/user", require("./routes/user"));
+app.get("/*", function (req, res) {
+  // res.sendFile("index.html", { root: path.join(__dirname, "./public/") });
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 app.listen(PORT, () => console.log(`Server running at port : ${PORT}`));
