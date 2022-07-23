@@ -114,11 +114,12 @@ router.post("/edit_user", Auth.authenticateToken, async (req, res) => {
 });
 
 router.get("/get_applications", Auth.authenticateToken, async (req, res) => {
+  let status = "fail";
   try {
     let {userId} = req.body;
-    let status = "fail";
     let resMessage = "application data fetched successfully";
     let resData = await DB.getUserAllowedApplications(userId);
+    status = "success";
     res
       .status(200)
       .json({ message: resMessage, status: status, data: resData });
@@ -126,5 +127,25 @@ router.get("/get_applications", Auth.authenticateToken, async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+router.patch("/toggle_user_app_access", Auth.authenticateToken, async (req, res) => {
+  let status = "fail";
+  let resMessage = "";
+  try {
+    let {userId, appName, appUrl} = req.body;
+    let ifSuccess = await DB.updateUserAllowedApplications(userId, appName, appUrl);
+    if (ifSuccess) {
+      resMessage = 'Table altered successfully';
+      status = 'success';
+    } else {
+      resMessage = 'Table could not be modified'
+    }
+    res
+      .status(200)
+      .json({ message: resMessage, status: status, data: {} });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+})
 
 module.exports = router;

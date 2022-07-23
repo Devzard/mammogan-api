@@ -135,7 +135,7 @@ async function getUserAllowedApplications(id) {
   }
 }
 
-async function patchUserAllowedApplications(id, appName, appUrl) {
+async function updateUserAllowedApplications(id, appName, appUrl) {
   try {
     let allowedApplications = await getUserAllowedApplications(id);
     let res = null;
@@ -223,8 +223,8 @@ async function updateCount(id, colName) {
   // let res = await updateLastActive("testuser", 1);
   // let res = await updateCount("test_user_1", "image_count");
   // let res = await getUserAllowedApplications('123')
-  let res = await patchUserAllowedApplications('1234', 'gan', '/gan')
-  console.log(res);
+  // let res = await patchUserAllowedApplications('1234', 'gan', '/gan')
+  // console.log(res);
   console.log("--");
 })();
 
@@ -235,6 +235,7 @@ module.exports = {
   getUser,
   checkIfExistsUser,
   getUserAllowedApplications,
+  updateUserAllowedApplications,
   updateLastActive,
   updateCount,
 };
