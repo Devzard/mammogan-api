@@ -113,7 +113,17 @@ router.post("/edit_user", Auth.authenticateToken, async (req, res) => {
   }
 });
 
-router.get("/get_applications", Auth.authenticateToken, async (req, res) => {
+router.get("/get_applications", Auth.authenticateToken, async (req,res) => {
+  try {
+    res
+      .status(200)
+      .json({ message: resMessage, status: "success", data: applications });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+})
+
+router.get("/get_user_allowed_applications", Auth.authenticateToken, async (req, res) => {
   let status = "fail";
   try {
     let {userId} = req.body;
