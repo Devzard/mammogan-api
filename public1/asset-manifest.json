@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/ganapi/static/css/main.cfa14534.css",
+    "main.js": "/ganapi/static/js/main.fa4c77af.js",
+    "static/js/787.40fba6f3.chunk.js": "/ganapi/static/js/787.40fba6f3.chunk.js",
+    "static/js/377.1d55e227.chunk.js": "/ganapi/static/js/377.1d55e227.chunk.js",
+    "service-worker.js": "/ganapi/service-worker.js",
+    "index.html": "/ganapi/index.html",
+    "main.cfa14534.css.map": "/ganapi/static/css/main.cfa14534.css.map",
+    "main.fa4c77af.js.map": "/ganapi/static/js/main.fa4c77af.js.map",
+    "787.40fba6f3.chunk.js.map": "/ganapi/static/js/787.40fba6f3.chunk.js.map",
+    "377.1d55e227.chunk.js.map": "/ganapi/static/js/377.1d55e227.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cfa14534.css",
+    "static/js/main.fa4c77af.js"
+  ]
+}

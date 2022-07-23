@@ -115,9 +115,13 @@ router.post("/edit_user", Auth.authenticateToken, async (req, res) => {
 
 router.get("/get_applications", Auth.authenticateToken, async (req, res) => {
   try {
+    let {userId} = req.body;
+    let status = "fail";
+    let resMessage = "application data fetched successfully";
+    let resData = await DB.getUserAllowedApplications(userId);
     res
       .status(200)
-      .json({ message: "", status: "success", data: applications });
+      .json({ message: resMessage, status: status, data: resData });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

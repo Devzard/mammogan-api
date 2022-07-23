@@ -135,6 +135,26 @@ async function getUserAllowedApplications(id) {
   }
 }
 
+async function patchUserAllowedApplications(id, appName, appUrl) {
+  try {
+    let allowedApplications = await getUserAllowedApplications(id);
+    let res = null;
+    if (allowedApplications.length == 0) {
+      res = await knex("application_access_table").insert({
+        userId: id,
+        app_name:appName,
+        url:appUrl
+      });
+    } else {
+      res = await knex('application_access_table').where({userId:id, app_name:appName}).del();
+    }
+    return res
+  } catch (err) {
+    console.log(err.message);
+    return false;
+  }
+}
+
 async function updateLastActive(id, addTime) {
   try {
     let timeSpent = await knex("users")
@@ -202,7 +222,9 @@ async function updateCount(id, colName) {
   // let res2 = await editUser("1", "456", "ramu", "987654321");
   // let res = await updateLastActive("testuser", 1);
   // let res = await updateCount("test_user_1", "image_count");
-  // console.log(res);
+  // let res = await getUserAllowedApplications('123')
+  let res = await patchUserAllowedApplications('1234', 'gan', '/gan')
+  console.log(res);
   console.log("--");
 })();
 
